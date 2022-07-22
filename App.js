@@ -1,85 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StyleSheet, Text, View } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import Option from "./screens/Option";
+import AddProduct from "./screens/AddProduct";
+import ProductList from "./screens/ProductList";
 
 export default function App() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const [product, setProduct] = useState({ product_name_fr: "" });
-  useEffect(() => {
-    (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
-
-  const getProduct = (data) => {
-    fetch(`https://world.openfoodfacts.org/api/v0/product/${data}.json`)
-      .then(function (result) {
-        return result.json();
-      })
-      .then(function (result) {
-        if (result.status === 1) {
-          setProduct(result.product);
-        } else {
-          fetch(`https://world.openbeautyfacts.org/api/v0/product/${data}.json`)
-            .then(function (result) {
-              return result.json();
-            })
-            .then(function (result) {
-              if (result.status === 1) {
-                setProduct(result.product);
-              } else {
-                setProduct({ product_name_fr: `L'article n'est pas reconnu` });
-              }
-            });
-        }
-      });
-  };
-
-  const handleBarCodeScanned = ({ data }) => {
-    setScanned(true);
-    getProduct(data);
-  };
-
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
-
+  const Tab = createBottomTabNavigator();
   return (
-    <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
-      {scanned && (
-        <View>
-          <Button
-            title={"Tap to Scan Again"}
-            onPress={() => {
-              setScanned(false);
-              setProduct({ product_name_fr: "" });
-            }}
-          />
-          <Text style={styles.baseText}>{product.product_name_fr}</Text>
-        </View>
-      )}
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Add Product" component={AddProduct} />
+        <Tab.Screen name="Product list" component={ProductList} />
+        <Tab.Screen name="Option" component={Option} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  baseText: {
-    fontSize: 20,
-    color: "#fdfefe",
-  },
-});
