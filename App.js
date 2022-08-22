@@ -1,8 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  createNativeStackNavigator,
-  NativeStackView,
-} from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import AddProduct from "./screens/AddProduct";
@@ -11,13 +8,14 @@ import ProductList from "./screens/ProductList";
 import AuthStackScreen from "./screens/authScreens/AuthStack";
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  //const Stack = createStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <AuthStackScreen />
+      {/* <Stack.Navigator headerMode="none">
         <Stack.Screen name="Auth" component={AuthStackScreen} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }

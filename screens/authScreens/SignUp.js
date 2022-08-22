@@ -16,15 +16,17 @@ import Feather from "react-native-vector-icons/Feather";
 import AccountServices from "../../services/account";
 import { StatusBar } from "expo-status-bar";
 
-export default function Login({ navigation }) {
+export default function SignUp({ navigation }) {
   const [body, setBody] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const [data, setData] = useState({
     check_textInputChange: false,
     secureTextEntry: true,
+    confirmSecureTextEntry: true,
   });
 
   const textInputChange = (val) => {
@@ -56,6 +58,13 @@ export default function Login({ navigation }) {
     });
   };
 
+  const handleConfirmPasswordChange = (val) => {
+    setBody({
+      ...body,
+      confirmPassword: val,
+    });
+  };
+
   const updateSecureTextEntry = () => {
     setData({
       ...data,
@@ -63,23 +72,32 @@ export default function Login({ navigation }) {
     });
   };
 
+  const updateConfirmSecureTextEntry = () => {
+    setData({
+      ...data,
+      confirmSecureTextEntry: !data.confirmSecureTextEntry,
+    });
+  };
+
   const handleSubmit = () => {
     console.log(body);
 
-    AccountServices.login(body)
-      .then((result) => {
-        console.log("connexion réussi");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    body.password === body.confirmPassword
+      ? AccountServices.createAccount(body)
+          .then((result) => {
+            console.log("inscription réussi");
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      : console.log("les mots de passes sont différents");
   };
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="ligt-content" />
       <View style={styles.header}>
-        <Text style={styles.text_header}>Bienvenue</Text>
+        <Text style={styles.text_header}>Enregistrez vous</Text>
       </View>
 
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
@@ -98,6 +116,7 @@ export default function Login({ navigation }) {
             </Animatable.View>
           ) : null}
         </View>
+
         <Text style={[styles.text_footer, { marginTop: 35 }]}>
           Mot de passe
         </Text>
@@ -118,6 +137,28 @@ export default function Login({ navigation }) {
             )}
           </TouchableOpacity>
         </View>
+
+        <Text style={[styles.text_footer, { marginTop: 35 }]}>
+          Confirmer mot de passe
+        </Text>
+        <View style={styles.action}>
+          <FontAwesome name="lock" color="#05375a" size={20} />
+          <TextInput
+            placeholder="Confirmer le mot de passe"
+            secureTextEntry={data.confirmSecureTextEntry ? true : false}
+            style={styles.textInput}
+            autoCapitalize="none"
+            onChangeText={(val) => handleConfirmPasswordChange(val)}
+          />
+          <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+            {data.confirmSecureTextEntry ? (
+              <Feather name="eye-off" color="grey" size={20} />
+            ) : (
+              <Feather name="eye" color="grey" size={20} />
+            )}
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.button}>
           <TouchableOpacity onPress={handleSubmit} style={styles.signIn}>
             <LinearGradient
@@ -125,13 +166,13 @@ export default function Login({ navigation }) {
               style={styles.signIn}
             >
               <Text style={[styles.textSign, { color: "#fff" }]}>
-                Connexion
+                Incsription
               </Text>
             </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => navigation.goBack()}
             style={[
               styles.signIn,
               {
@@ -142,7 +183,7 @@ export default function Login({ navigation }) {
             ]}
           >
             <Text style={[styles.textSign, { color: "#009387" }]}>
-              Inscription
+              Connexion
             </Text>
           </TouchableOpacity>
         </View>
