@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   TextInput,
   TouchableOpacity,
@@ -13,10 +13,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 
-import AccountServices from "../../services/account";
 import { StatusBar } from "expo-status-bar";
 
+import { AuthContext } from "../../context/AuthContext";
+
 export default function Login({ navigation }) {
+  const { login } = useContext(AuthContext);
   const [body, setBody] = useState({
     email: "",
     password: "",
@@ -63,18 +65,6 @@ export default function Login({ navigation }) {
     });
   };
 
-  const handleSubmit = () => {
-    console.log(body);
-
-    AccountServices.login(body)
-      .then((result) => {
-        console.log("connexion réussi");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#009387" barStyle="ligt-content" />
@@ -119,7 +109,7 @@ export default function Login({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={handleSubmit} style={styles.signIn}>
+          <TouchableOpacity onPress={() => login(body)} style={styles.signIn}>
             <LinearGradient
               colors={["#08d4c4", "#01ab9d"]}
               style={styles.signIn}
