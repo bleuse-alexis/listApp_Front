@@ -3,7 +3,7 @@ import { View, ActivityIndicator } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthStackScreen from "./AuthStack";
 import { AuthContext } from "../context/AuthContext";
-import AddProduct from "../screens/AddProduct";
+import TabNavigator from "./TabNavigator";
 
 const AppNav = () => {
   const { isLoading, userToken } = useContext(AuthContext);
@@ -18,7 +18,7 @@ const AppNav = () => {
 
   return (
     <NavigationContainer>
-      {userToken !== null ? <AddProduct /> : <AuthStackScreen />}
+      {userToken !== null ? <TabNavigator /> : <AuthStackScreen />}
     </NavigationContainer>
   );
 };

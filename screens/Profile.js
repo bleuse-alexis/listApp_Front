@@ -4,7 +4,7 @@ export default function ProductList() {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.baseText}> Product list </Text>
+        <Text style={styles.baseText}> profile </Text>
       </View>
     </View>
   );
