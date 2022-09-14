@@ -18,12 +18,12 @@ export default function TabNavigator() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: "#009387",
+          backgroundColor: "#6CCFF6",
 
           height: 70,
         },
         tabBarInactiveTintColor: "#fff",
-        tabBarActiveTintColor: "orange",
+        tabBarActiveTintColor: "#397367",
       }}
     >
       <Tab.Screen

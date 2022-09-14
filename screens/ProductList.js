@@ -1,11 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+
+import { StyleSheet, View } from "react-native";
+
+import ListSelector from "../components/ListSelector";
 
 export default function ProductList() {
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.baseText}> Product list </Text>
-      </View>
+      <ListSelector style={styles.listSelector} />
+      <View style={styles.list}></View>
     </View>
   );
 }
@@ -13,12 +16,20 @@ export default function ProductList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   baseText: {
     fontSize: 20,
     color: "black",
+  },
+  listSelector: {
+    flex: 1,
+    backgroundColor: "#009387",
+    color: "#397367",
+  },
+  list: {
+    flex: 10,
+    backgroundColor: "#fff",
   },
 });
