@@ -27,22 +27,25 @@ export default function ListSelector({ lists }) {
   }, [lists]);
 
   return (
-    <DropDownPicker
-      open={open}
-      value={value}
-      items={list}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setList}
-      placeholder="selectionner une liste"
-      style={{
-        borderTopLeftRadius: 0,
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-        borderWidth: 0,
-        backgroundColor: "#6CCFF6",
-      }}
-    />
+    <View style={{ width: "80%" }}>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={list}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setList}
+        placeholder="selectionner une liste"
+        style={{
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: 0,
+          borderWidth: 0,
+
+          backgroundColor: "#6CCFF6",
+        }}
+      />
+    </View>
   );
 }

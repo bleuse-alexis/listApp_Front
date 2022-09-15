@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
-import ListSelector from "../components/ListSelector";
+import ListSelector from "../components/list/ListSelector";
 import ListServices from "../services/list";
 
 import { AuthContext } from "../context/AuthContext";
+import AddList from "../components/list/AddList";
+import DeleteList from "../components/list/DeleteList";
 
 export default function ProductList() {
   const [list, setList] = useState([]);
@@ -29,7 +31,11 @@ export default function ProductList() {
 
   return (
     <View style={styles.container}>
-      <ListSelector style={styles.listSelector} lists={list} />
+      <View style={styles.listSelector}>
+        <ListSelector lists={list} />
+        <AddList />
+        <DeleteList />
+      </View>
       <View style={styles.list}></View>
     </View>
   );
@@ -38,7 +44,6 @@ export default function ProductList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
   },
   baseText: {
@@ -47,11 +52,12 @@ const styles = StyleSheet.create({
   },
   listSelector: {
     flex: 1,
-    backgroundColor: "#009387",
-    color: "#397367",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    backgroundColor: "#6CCFF6",
   },
   list: {
     flex: 10,
-    backgroundColor: "#fff",
   },
 });
