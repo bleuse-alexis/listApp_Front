@@ -20,14 +20,14 @@ export default function ListSelector({ lists }) {
     { label: "soirée", value: "soirée" },
   ] */
 
-  console.log(lists);
+  console.log(list);
 
   useEffect(() => {
     fetchAndSet();
-  }, [lists]);
+  }, [open]);
 
   return (
-    <View style={{ width: "80%" }}>
+    <View style={{ width: "70%" }}>
       <DropDownPicker
         open={open}
         value={value}
