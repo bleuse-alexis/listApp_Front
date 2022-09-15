@@ -2,11 +2,12 @@ import React, { useState, useContext } from "react";
 import {
   TouchableOpacity,
   View,
-  Modal,
   TextInput,
   Text,
   StyleSheet,
 } from "react-native";
+import Modal from "react-native-modal";
+
 import Feather from "react-native-vector-icons/Feather";
 import { AuthContext } from "../../context/AuthContext";
 import ListServices from "../../services/list";
@@ -40,14 +41,14 @@ export default function AddList({ fetchAndSetList }) {
     }
   };
 
-  console.log(body);
-
   return (
     <View>
       <Modal
-        animationType="fade"
+        animationInTiming={1000}
+        animationOutTiming={1000}
         transparent={true}
-        visible={modalVisible}
+        isVisible={modalVisible}
+        onBackdropPress={() => setModalVisible(!modalVisible)}
         onRequestClose={() => setModalVisible(!modalVisible)}
       >
         <View style={styles.centeredView}>
@@ -79,7 +80,6 @@ export default function AddList({ fetchAndSetList }) {
 
 const styles = StyleSheet.create({
   centeredView: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22,
