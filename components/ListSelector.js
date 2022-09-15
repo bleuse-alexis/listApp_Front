@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 
 import DropDownPicker from "react-native-dropdown-picker";
 
-export default function ListSelector() {
+export default function ListSelector({ lists }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [list, setList] = useState([
+  const [list, setList] = useState([]);
+
+  const fetchAndSet = () => {
+    setList(
+      lists.map((List) => {
+        return { label: List.name, value: List.name };
+      })
+    );
+  };
+  /*   [
     { label: "course", value: "course" },
     { label: "soirée", value: "soirée" },
-  ]);
+  ] */
+
+  console.log(lists);
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [lists]);
 
   return (
     <DropDownPicker

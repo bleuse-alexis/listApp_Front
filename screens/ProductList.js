@@ -1,13 +1,35 @@
-import React from "react";
-
+import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
 import ListSelector from "../components/ListSelector";
+import ListServices from "../services/list";
+
+import { AuthContext } from "../context/AuthContext";
 
 export default function ProductList() {
+  const [list, setList] = useState([]);
+
+  const { userId } = useContext(AuthContext);
+
+  const body = { account: userId };
+
+  function fetchAndSetList() {
+    ListServices.getList(body)
+      .then((result) => {
+        setList(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    fetchAndSetList();
+  }, [userId]);
+
   return (
     <View style={styles.container}>
-      <ListSelector style={styles.listSelector} />
+      <ListSelector style={styles.listSelector} lists={list} />
       <View style={styles.list}></View>
     </View>
   );

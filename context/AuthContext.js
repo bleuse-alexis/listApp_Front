@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userToken, setUserToken] = useState(null);
+  const [userId, setUserId] = useState();
 
   const login = (body) => {
     setIsLoading(true);
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }) => {
         setUserToken(res.data.jwt);
 
         AsyncStorage.setItem("userToken", res.data.jwt);
+        userID();
       })
       .catch((e) => {
         console.log(e);
@@ -36,6 +38,7 @@ export const AuthProvider = ({ children }) => {
       let userToken = await AsyncStorage.getItem("userToken");
       if (userToken) {
         setUserToken(userToken);
+        userID();
       }
       setIsLoading(false);
     } catch (e) {
@@ -43,12 +46,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const userID = async () => {
+    AccountServices.getUserId()
+      .then((result) => setUserId(result.data._id))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     isLoggedIn();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ login, logout, isLoading, userToken }}>
+    <AuthContext.Provider
+      value={{ login, logout, isLoading, userToken, userId }}
+    >
       {children}
     </AuthContext.Provider>
   );

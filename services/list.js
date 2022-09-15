@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_API_URL;
-
-const base = axios.create({ baseURL });
+const base = axios.create({ baseURL: "http://172.20.10.1:1337" });
 
 const ListServices = {
   createList(body) {
@@ -10,7 +8,11 @@ const ListServices = {
   },
 
   addArticle(id, body) {
-    return base.put(`List/${id}`, body);
+    return base.put(`/list/${id}`, body);
+  },
+
+  getList(body) {
+    return base.post(`/list/getList`, body);
   },
 };
 
