@@ -5,7 +5,7 @@ import Feather from "react-native-vector-icons/Feather";
 export default function DeleteList() {
   return (
     <TouchableOpacity>
-      <Feather name="trash-2" color="white" size={20} />
+      <Feather name="trash-2" color="white" size={30} />
     </TouchableOpacity>
   );
 }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 
-import DropDownPicker from "react-native-dropdown-picker";
+import { Dropdown } from "react-native-element-dropdown";
 
 export default function ListSelector({ lists }) {
-  const [open, setOpen] = useState(false);
+  const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(null);
   const [list, setList] = useState([]);
 
@@ -20,32 +20,48 @@ export default function ListSelector({ lists }) {
     { label: "soirée", value: "soirée" },
   ] */
 
-  console.log(list);
+  console.log(value);
 
   useEffect(() => {
     fetchAndSet();
-  }, [open]);
+  }, [isFocus]);
 
   return (
     <View style={{ width: "70%" }}>
-      <DropDownPicker
+      <Dropdown
+        style={{
+          borderRadius: 8,
+          borderWidth: 0,
+          backgroundColor: "#6CCFF6",
+        }}
+        containerStyle={{
+          borderRadius: 8,
+          borderWidth: 0,
+        }}
+        placeholder="selectionner une liste"
+        data={list}
+        value={value}
+        onChange={(item) => {
+          setValue(item.value);
+        }}
+        labelField="label"
+        valueField="value"
+        maxHeight={300}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+      />
+
+      {/* <DropDownPicker
         open={open}
         value={value}
         items={list}
         setOpen={setOpen}
         setValue={setValue}
         setItems={setList}
-        placeholder="selectionner une liste"
         style={{
-          borderTopLeftRadius: 0,
-          borderTopRightRadius: 0,
-          borderBottomLeftRadius: 0,
-          borderBottomRightRadius: 0,
-          borderWidth: 0,
-
-          backgroundColor: "#6CCFF6",
+          
         }}
-      />
+      /> */}
     </View>
   );
 }
