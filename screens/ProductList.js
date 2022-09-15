@@ -33,7 +33,7 @@ export default function ProductList() {
     <View style={styles.container}>
       <View style={styles.listSelector}>
         <ListSelector lists={list} />
-        <AddList />
+        <AddList fetchAndSetList={fetchAndSetList} />
         <DeleteList />
       </View>
       <View style={styles.list}></View>
