@@ -43,7 +43,7 @@ export default function ProductList() {
         />
       </View>
       <View style={styles.list}>
-        <List />
+        <List product={value} />
       </View>
       <View style={styles.button}></View>
     </View>

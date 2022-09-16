@@ -29,8 +29,6 @@ export default function DeleteList({ value, fetchAndSetList, setValue }) {
     }
   };
 
-  console.log(body);
-
   useEffect(() => {
     setBody({
       ...body,

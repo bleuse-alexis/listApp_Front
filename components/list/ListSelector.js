@@ -10,7 +10,7 @@ export default function ListSelector({ lists, value, setValue }) {
   const fetchAndSet = () => {
     setList(
       lists.map((List) => {
-        return { label: List.name, value: List.name };
+        return { label: List.name, value: List.name, article: List.article };
       })
     );
   };
@@ -35,7 +35,7 @@ export default function ListSelector({ lists, value, setValue }) {
         data={list}
         value={value}
         onChange={(item) => {
-          setValue(item.value);
+          setValue(item);
         }}
         labelField="label"
         valueField="value"
