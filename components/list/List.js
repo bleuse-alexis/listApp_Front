@@ -15,9 +15,6 @@ export default function List({ product }) {
     }
   };
 
-  console.log(product);
-  console.log(data);
-
   useEffect(() => {
     fetchAndSet();
   }, [product]);
