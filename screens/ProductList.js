@@ -7,6 +7,7 @@ import ListServices from "../services/list";
 import { AuthContext } from "../context/AuthContext";
 import AddList from "../components/list/AddList";
 import DeleteList from "../components/list/DeleteList";
+import List from "../components/list/List";
 
 export default function ProductList() {
   const [list, setList] = useState([]);
@@ -41,7 +42,10 @@ export default function ProductList() {
           setValue={setValue}
         />
       </View>
-      <View style={styles.list}></View>
+      <View style={styles.list}>
+        <List />
+      </View>
+      <View style={styles.button}></View>
     </View>
   );
 }
@@ -64,5 +68,12 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 10,
+  },
+  button: {
+    flex: 0.7,
+    backgroundColor: "red",
+    width: "30%",
+    marginLeft: 400,
+    marginBottom: 10,
   },
 });
