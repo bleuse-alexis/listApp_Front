@@ -14,6 +14,10 @@ const ListServices = {
   getList(body) {
     return base.post(`/list/getList`, body);
   },
+
+  deleteList(body) {
+    return base.post(`/list/delete`, body);
+  },
 };
 
 export default ListServices;

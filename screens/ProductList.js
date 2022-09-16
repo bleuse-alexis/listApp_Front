@@ -10,6 +10,7 @@ import DeleteList from "../components/list/DeleteList";
 
 export default function ProductList() {
   const [list, setList] = useState([]);
+  const [value, setValue] = useState(null);
 
   const { userId } = useContext(AuthContext);
 
@@ -32,9 +33,13 @@ export default function ProductList() {
   return (
     <View style={styles.container}>
       <View style={styles.listSelector}>
-        <ListSelector lists={list} />
+        <ListSelector lists={list} value={value} setValue={setValue} />
         <AddList fetchAndSetList={fetchAndSetList} />
-        <DeleteList />
+        <DeleteList
+          value={value}
+          fetchAndSetList={fetchAndSetList}
+          setValue={setValue}
+        />
       </View>
       <View style={styles.list}></View>
     </View>

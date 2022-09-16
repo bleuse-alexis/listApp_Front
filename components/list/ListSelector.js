@@ -3,9 +3,8 @@ import { View } from "react-native";
 
 import { Dropdown } from "react-native-element-dropdown";
 
-export default function ListSelector({ lists }) {
+export default function ListSelector({ lists, value, setValue }) {
   const [isFocus, setIsFocus] = useState(false);
-  const [value, setValue] = useState(null);
   const [list, setList] = useState([]);
 
   const fetchAndSet = () => {
@@ -15,12 +14,6 @@ export default function ListSelector({ lists }) {
       })
     );
   };
-  /*   [
-    { label: "course", value: "course" },
-    { label: "soirée", value: "soirée" },
-  ] */
-
-  console.log(value);
 
   useEffect(() => {
     fetchAndSet();
