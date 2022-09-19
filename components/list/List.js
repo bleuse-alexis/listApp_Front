@@ -16,9 +16,10 @@ export default function List({ product }) {
 
   const fetchAndSet = () => {
     if (product !== null) {
-      product.article.map((item) => {
-        setData((data) => [...data, { name: item, state: false }]);
+      let list = product.article.map((item) => {
+        return { name: item, state: false };
       });
+      setData(list);
     }
   };
 

@@ -45,7 +45,8 @@ export default function ProductList() {
       <View style={styles.list}>
         <List product={value} />
       </View>
-      <View style={styles.button}></View>
+      {/*       <View style={styles.button}></View>
+       */}
     </View>
   );
 }
