@@ -17,7 +17,7 @@ export default function List({ product }) {
   const fetchAndSet = () => {
     if (product !== null) {
       let list = product.article.map((item) => {
-        return { name: item, state: false };
+        return { name: item.name, state: item.state };
       });
       setData(list);
     }
@@ -32,6 +32,7 @@ export default function List({ product }) {
     });
     setData(updatedList);
   };
+  console.log(product);
 
   console.log(data);
 
