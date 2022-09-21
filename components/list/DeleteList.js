@@ -30,16 +30,18 @@ export default function DeleteList({ value, fetchAndSetList, setValue }) {
   };
 
   useEffect(() => {
-    setBody({
-      ...body,
-      name: value,
-      account: userId,
-    });
-
     if (value === null) {
       setBody({ ...body, name: "", account: userId });
+    } else {
+      setBody({
+        ...body,
+        name: value.value,
+        account: userId,
+      });
     }
   }, [modalVisible]);
+
+  console.log(body);
 
   return (
     <View>
@@ -54,7 +56,7 @@ export default function DeleteList({ value, fetchAndSetList, setValue }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
-              Voulez vous supprimer la liste "{value}"
+              Voulez vous supprimer la liste "{body.name}"
             </Text>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
