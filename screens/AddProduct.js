@@ -1,46 +1,41 @@
-import { StyleSheet, Button, View } from "react-native";
-import {
-  createNativeStackNavigator,
-  NativeStackView,
-} from "@react-navigation/native-stack";
+import React from "react";
+import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 
-import CodeScanner from "./CodeScanner";
+import Scanner from "../components/addArticle/scanner";
+import Form from "../components/addArticle/form";
 
-function AddProduct({ navigation }) {
+export default function AddProduct({ navigation }) {
   return (
     <View style={styles.container}>
-      <View>
-        <Button
-          title={"Scan Article"}
-          onPress={() => {
-            navigation.navigate("Scanner");
-          }}
-        />
+      <View style={styles.select}>
+        <TouchableOpacity onPress={Scanner}>
+          <Text>Scanner de code barre</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.select}>
+        <TouchableOpacity>
+          <Text>Formulaire d'ajout</Text>
+        </TouchableOpacity>
       </View>
     </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
-
-export default function AddList() {
-  return (
-    <Stack.Navigator initialRouteName="AddProduct">
-      <Stack.Screen name="AddProduct" component={AddProduct} />
-      <Stack.Screen name="Scanner" component={CodeScanner} />
-    </Stack.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "row",
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
   },
   baseText: {
     fontSize: 20,
     color: "#fdfefe",
+  },
+  select: {
+    flex: 0.5,
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
   },
 });

@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 
-import CodeScanner from "../screens/CodeScanner";
+import AddProduct from "../screens/AddProduct";
 import ProductList from "../screens/ProductList";
 import Profile from "../screens/Profile";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -37,8 +37,8 @@ export default function TabNavigator() {
       />
 
       <Tab.Screen
-        name="CodeScanner"
-        component={CodeScanner}
+        name="AddProduct"
+        component={AddProduct}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="scan-circle-outline" color={color} size={size} />
