@@ -39,9 +39,6 @@ export default function List({ product }) {
     fetchAndSet();
   }, [product]);
 
-  console.log(product);
-  console.log(data);
-
   if (data.length !== 0) {
     return (
       <ScrollView>
