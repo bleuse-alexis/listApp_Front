@@ -41,8 +41,6 @@ export default function DeleteList({ value, fetchAndSetList, setValue }) {
     }
   }, [modalVisible]);
 
-  console.log(body);
-
   return (
     <View>
       <Modal

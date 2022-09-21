@@ -20,6 +20,8 @@ export default function List({ product }) {
         return { name: item.name, state: item.state };
       });
       setData(list);
+    } else {
+      setData([]);
     }
   };
 
@@ -32,13 +34,13 @@ export default function List({ product }) {
     });
     setData(updatedList);
   };
-  console.log(product);
-
-  console.log(data);
 
   useEffect(() => {
     fetchAndSet();
   }, [product]);
+
+  console.log(product);
+  console.log(data);
 
   if (data.length !== 0) {
     return (
@@ -59,19 +61,6 @@ export default function List({ product }) {
               )}
             </TouchableOpacity>
           </View>
-
-          /* <BouncyCheckbox
-            key={index}
-            fillColor="red"
-            unfillColor="#FFF"
-            text={item.name}
-            iconStyle={{ borderColor: "red" }}
-            innerIconStyle={{ borderWidth: 2 }}
-            onPress={(isChecked) => {
-              item.state = isChecked;
-              setData([...data]);
-            }}
-          /> */
         ))}
       </ScrollView>
     );
