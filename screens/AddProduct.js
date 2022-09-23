@@ -25,7 +25,7 @@ export default function AddProduct() {
   }
   if (!scanner && !form) {
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.select}>
           <TouchableOpacity onPress={() => setScanner(!scanner)}>
             <Text>Scanner de code barre</Text>

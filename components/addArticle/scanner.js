@@ -2,44 +2,22 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
+import searchService from "../../services/search";
+
 export default function CodeSCanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [product, setProduct] = useState({ product_name_fr: "" });
   useEffect(() => {
-    (async () => {
+    async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
-    })();
+    };
   }, []);
-
-  const getProduct = (data) => {
-    fetch(`https://world.openfoodfacts.org/api/v0/product/${data}.json`)
-      .then(function (result) {
-        return result.json();
-      })
-      .then(function (result) {
-        if (result.status === 1) {
-          setProduct(result.product);
-        } else {
-          fetch(`https://world.openbeautyfacts.org/api/v0/product/${data}.json`)
-            .then(function (result) {
-              return result.json();
-            })
-            .then(function (result) {
-              if (result.status === 1) {
-                setProduct(result.product);
-              } else {
-                setProduct({ product_name_fr: `L'article n'est pas reconnu` });
-              }
-            });
-        }
-      });
-  };
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    getProduct(data);
+    setProduct(data);
   };
 
   if (hasPermission === null) {
