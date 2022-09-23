@@ -40,6 +40,8 @@ export default function TabNavigator() {
         name="AddProduct"
         component={AddProduct}
         options={{
+          unmountOnBlur: true,
+
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="scan-circle-outline" color={color} size={size} />
           ),
