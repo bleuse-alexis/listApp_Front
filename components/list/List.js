@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import {
   View,
@@ -11,12 +11,16 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Feather from "react-native-vector-icons/Feather";
 
-export default function List({ product }) {
+import { ListContext } from "../../context/ListContext";
+
+export default function List() {
   const [data, setData] = useState([]);
 
+  const { value } = useContext(ListContext);
+
   const fetchAndSet = () => {
-    if (product !== null) {
-      let list = product.article.map((item) => {
+    if (value !== null) {
+      let list = value.article.map((item) => {
         return { name: item.name, state: item.state };
       });
       setData(list);
@@ -37,7 +41,7 @@ export default function List({ product }) {
 
   useEffect(() => {
     fetchAndSet();
-  }, [product]);
+  }, [value]);
 
   if (data.length !== 0) {
     return (

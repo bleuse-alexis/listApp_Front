@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View } from "react-native";
+
+import { ListContext } from "../../context/ListContext";
 
 import { Dropdown } from "react-native-element-dropdown";
 
-export default function ListSelector({ lists, value, setValue }) {
+export default function ListSelector() {
   const [isFocus, setIsFocus] = useState(false);
-  const [list, setList] = useState([]);
+  const [selectedList, setSelectedList] = useState([]);
+
+  const { list, value, setValue } = useContext(ListContext);
 
   const fetchAndSet = () => {
-    setList(
-      lists.map((List) => {
+    setSelectedList(
+      list.map((List) => {
         return { label: List.name, value: List.name, article: List.article };
       })
     );
@@ -32,7 +36,7 @@ export default function ListSelector({ lists, value, setValue }) {
           borderWidth: 0,
         }}
         placeholder="selectionner une liste"
-        data={list}
+        data={selectedList}
         value={value}
         onChange={(item) => {
           setValue(item);
@@ -43,18 +47,6 @@ export default function ListSelector({ lists, value, setValue }) {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
       />
-
-      {/* <DropDownPicker
-        open={open}
-        value={value}
-        items={list}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setList}
-        style={{
-          
-        }}
-      /> */}
     </View>
   );
 }

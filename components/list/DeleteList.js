@@ -4,12 +4,15 @@ import Feather from "react-native-vector-icons/Feather";
 import Modal from "react-native-modal";
 
 import { AuthContext } from "../../context/AuthContext";
+import { ListContext } from "../../context/ListContext";
+
 import ListServices from "../../services/list";
 
-export default function DeleteList({ value, fetchAndSetList, setValue }) {
+export default function DeleteList() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const { userId } = useContext(AuthContext);
+  const { value, fetchAndSetList, setValue } = useContext(ListContext);
 
   const [body, setBody] = useState({
     name: "",
@@ -22,7 +25,7 @@ export default function DeleteList({ value, fetchAndSetList, setValue }) {
     } else {
       ListServices.deleteList(body).then((res) => {
         console.log(res);
-        fetchAndSetList();
+        fetchAndSetList({ account: userId });
         setValue(null);
         setModalVisible(!modalVisible);
       });

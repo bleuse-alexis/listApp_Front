@@ -7,12 +7,14 @@ import {
   StyleSheet,
 } from "react-native";
 import Modal from "react-native-modal";
-
 import Feather from "react-native-vector-icons/Feather";
+
 import { AuthContext } from "../../context/AuthContext";
+import { ListContext } from "../../context/ListContext";
+
 import ListServices from "../../services/list";
 
-export default function AddList({ fetchAndSetList }) {
+export default function AddList() {
   const [modalVisible, setModalVisible] = useState(false);
   const [body, setBody] = useState({
     name: "",
@@ -20,6 +22,7 @@ export default function AddList({ fetchAndSetList }) {
   });
 
   const { userId } = useContext(AuthContext);
+  const { fetchAndSetList } = useContext(ListContext);
 
   const inputChange = (val) => {
     setBody({
@@ -35,7 +38,7 @@ export default function AddList({ fetchAndSetList }) {
     } else {
       ListServices.createList(body).then((res) => {
         console.log(res);
-        fetchAndSetList();
+        fetchAndSetList({ account: userId });
         setModalVisible(!modalVisible);
       });
     }

@@ -1,52 +1,36 @@
 import React, { useEffect, useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
-import ListSelector from "../components/list/ListSelector";
 import ListServices from "../services/list";
 
 import { AuthContext } from "../context/AuthContext";
+import { ListContext } from "../context/ListContext";
+
 import AddList from "../components/list/AddList";
 import DeleteList from "../components/list/DeleteList";
 import List from "../components/list/List";
+import ListSelector from "../components/list/ListSelector";
 
 export default function ProductList() {
-  const [list, setList] = useState([]);
-  const [value, setValue] = useState(null);
-
   const { userId } = useContext(AuthContext);
+  const { fetchAndSetList } = useContext(ListContext);
 
   const body = { account: userId };
 
-  function fetchAndSetList() {
-    ListServices.getList(body)
-      .then((result) => {
-        setList(result.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   useEffect(() => {
-    fetchAndSetList();
+    fetchAndSetList(body);
   }, [userId]);
 
   return (
     <View style={styles.container}>
       <View style={styles.listSelector}>
-        <ListSelector lists={list} value={value} setValue={setValue} />
-        <AddList fetchAndSetList={fetchAndSetList} />
-        <DeleteList
-          value={value}
-          fetchAndSetList={fetchAndSetList}
-          setValue={setValue}
-        />
+        <ListSelector />
+        <AddList />
+        <DeleteList />
       </View>
       <View style={styles.list}>
-        <List product={value} />
+        <List />
       </View>
-      {/*       <View style={styles.button}></View>
-       */}
     </View>
   );
 }
