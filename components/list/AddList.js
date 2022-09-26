@@ -37,7 +37,6 @@ export default function AddList() {
       console.log("pas de nom de liste");
     } else {
       ListServices.createList(body).then((res) => {
-        console.log(res);
         fetchAndSetList({ account: userId });
         setModalVisible(!modalVisible);
       });

@@ -24,7 +24,6 @@ export default function DeleteList() {
       console.log("pas de liste selectionné");
     } else {
       ListServices.deleteList(body).then((res) => {
-        console.log(res);
         fetchAndSetList({ account: userId });
         setValue(null);
         setModalVisible(!modalVisible);
