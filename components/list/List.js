@@ -29,6 +29,13 @@ export default function List() {
     }
   };
 
+  const deleteArticle = (toDelete) => {
+    let updatedList = data.filter((item) => {
+      return item.name !== toDelete;
+    });
+    setData(updatedList);
+  };
+
   const updateCheckState = (isChecked) => {
     let updatedList = data.map((item) => {
       if (item.name === isChecked) {
@@ -60,6 +67,9 @@ export default function List() {
               ) : (
                 <Feather name="square" color="grey" size={20} />
               )}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => deleteArticle(item.name)}>
+              <Feather name="trash" color="grey" size={20} />
             </TouchableOpacity>
           </View>
         ))}
