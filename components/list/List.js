@@ -14,46 +14,29 @@ import Feather from "react-native-vector-icons/Feather";
 import { ListContext } from "../../context/ListContext";
 
 export default function List() {
-  const [data, setData] = useState([]);
-
-  const { value } = useContext(ListContext);
-
-  const fetchAndSet = () => {
-    if (value !== null) {
-      let list = value.article.map((item) => {
-        return { name: item.name, state: item.state };
-      });
-      setData(list);
-    } else {
-      setData([]);
-    }
-  };
+  const { value, setValue } = useContext(ListContext);
 
   const deleteArticle = (toDelete) => {
-    let updatedList = data.filter((item) => {
+    let updatedList = value.article.filter((item) => {
       return item.name !== toDelete;
     });
-    setData(updatedList);
+    setValue({ ...value, article: updatedList });
   };
 
   const updateCheckState = (isChecked) => {
-    let updatedList = data.map((item) => {
+    let updatedList = value.article.map((item) => {
       if (item.name === isChecked) {
         return { ...item, state: !item.state };
       }
       return item;
     });
-    setData(updatedList);
+    setValue({ ...value, article: updatedList });
   };
 
-  useEffect(() => {
-    fetchAndSet();
-  }, [value]);
-
-  if (data.length !== 0) {
+  if (value !== null) {
     return (
       <ScrollView>
-        {data.map((item, index) => (
+        {value.article.map((item, index) => (
           <View style={styles.listContainer} key={index}>
             <View style={styles.article}>
               <Text>{item.name}</Text>
