@@ -12,25 +12,32 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Feather from "react-native-vector-icons/Feather";
 
 import { ListContext } from "../../context/ListContext";
+import ListServices from "../../services/list";
 
 export default function List() {
-  const { value, setValue } = useContext(ListContext);
+  const { value, setValue, fetchAndSetList, updateList } =
+    useContext(ListContext);
 
   const deleteArticle = (toDelete) => {
     let updatedList = value.article.filter((item) => {
-      return item.name !== toDelete;
+      return item._id !== toDelete;
     });
     setValue({ ...value, article: updatedList });
+    return updateList();
   };
 
   const updateCheckState = (isChecked) => {
     let updatedList = value.article.map((item) => {
-      if (item.name === isChecked) {
+      if (item._id === isChecked) {
         return { ...item, state: !item.state };
       }
       return item;
     });
     setValue({ ...value, article: updatedList });
+
+    console.log(value);
+
+    return updateList();
   };
 
   if (value !== null) {
@@ -42,7 +49,7 @@ export default function List() {
               <Text>{item.name}</Text>
             </View>
             <TouchableOpacity
-              onPress={() => updateCheckState(item.name)}
+              onPress={() => updateCheckState(item._id)}
               style={styles.checkbox}
             >
               {item.state ? (
@@ -51,7 +58,7 @@ export default function List() {
                 <Feather name="square" color="grey" size={20} />
               )}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => deleteArticle(item.name)}>
+            <TouchableOpacity onPress={() => deleteArticle(item._id)}>
               <Feather name="trash" color="grey" size={20} />
             </TouchableOpacity>
           </View>

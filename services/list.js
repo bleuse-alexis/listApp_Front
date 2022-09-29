@@ -18,6 +18,10 @@ const ListServices = {
   deleteList(body) {
     return base.post(`/list/delete`, body);
   },
+
+  updateList(id, body) {
+    return base.post(`/list/update/${id}`, body);
+  },
 };
 
 export default ListServices;

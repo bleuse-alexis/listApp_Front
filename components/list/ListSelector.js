@@ -14,7 +14,13 @@ export default function ListSelector() {
   const fetchAndSet = () => {
     setSelectedList(
       list.map((List) => {
-        return { label: List.name, value: List.name, article: List.article };
+        return {
+          _id: List._id,
+          label: List.name,
+          value: List.name,
+          article: List.article,
+          account: List.account,
+        };
       })
     );
   };
