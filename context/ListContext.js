@@ -19,8 +19,17 @@ export const ListProvider = ({ children }) => {
       });
   };
 
+  const updateList = () => {
+    console.log(value);
+    ListServices.updateList(value._id, value).then(() => {
+      fetchAndSetList({ account: value.account });
+    });
+  };
+
   return (
-    <ListContext.Provider value={{ list, value, setValue, fetchAndSetList }}>
+    <ListContext.Provider
+      value={{ list, value, setValue, fetchAndSetList, updateList }}
+    >
       {children}
     </ListContext.Provider>
   );
