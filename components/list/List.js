@@ -23,7 +23,6 @@ export default function List() {
       return item._id !== toDelete;
     });
     setValue({ ...value, article: updatedList });
-    return updateList();
   };
 
   const updateCheckState = (isChecked) => {
@@ -36,11 +35,13 @@ export default function List() {
     setValue({ ...value, article: updatedList });
 
     console.log(value);
-
-    return updateList();
   };
 
   if (value !== null) {
+    useEffect(() => {
+      updateList();
+    }, [value]);
+
     return (
       <ScrollView>
         {value.article.map((item, index) => (
