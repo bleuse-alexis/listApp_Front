@@ -37,11 +37,11 @@ export default function List() {
     console.log(value);
   };
 
-  if (value !== null) {
-    useEffect(() => {
-      updateList();
-    }, [value]);
+  useEffect(() => {
+    if (value !== null) updateList();
+  }, [value]);
 
+  if (value !== null) {
     return (
       <ScrollView>
         {value.article.map((item, index) => (
