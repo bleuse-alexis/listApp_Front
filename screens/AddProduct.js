@@ -7,6 +7,8 @@ import AddList from "../components/list/AddList";
 import DeleteList from "../components/list/DeleteList";
 import ListSelector from "../components/list/ListSelector";
 
+import Feather from "react-native-vector-icons/Feather";
+
 export default function AddProduct() {
   const [scanner, setScanner] = useState(false);
   const [form, setForm] = useState(false);
@@ -36,13 +38,21 @@ export default function AddProduct() {
         </View>
         <View style={styles.selector}>
           <View style={styles.select}>
-            <TouchableOpacity onPress={() => setScanner(!scanner)}>
+            <TouchableOpacity
+              style={{ alignItems: "center", justifyContent: "center" }}
+              onPress={() => setScanner(!scanner)}
+            >
               <Text>Scanner de code barre</Text>
+              <Feather name="camera" color="black" size={50} />
             </TouchableOpacity>
           </View>
           <View style={styles.select}>
-            <TouchableOpacity onPress={() => setForm(!form)}>
+            <TouchableOpacity
+              style={{ alignItems: "center", justifyContent: "center" }}
+              onPress={() => setForm(!form)}
+            >
               <Text>Formulaire d'ajout</Text>
+              <Feather name="list" color="black" size={50} />
             </TouchableOpacity>
           </View>
         </View>
