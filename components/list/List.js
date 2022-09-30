@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 
 import {
   View,
@@ -8,15 +8,12 @@ import {
   ScrollView,
 } from "react-native";
 
-import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Feather from "react-native-vector-icons/Feather";
 
 import { ListContext } from "../../context/ListContext";
-import ListServices from "../../services/list";
 
 export default function List() {
-  const { value, setValue, fetchAndSetList, updateList } =
-    useContext(ListContext);
+  const { value, setValue, updateList } = useContext(ListContext);
 
   const deleteArticle = (toDelete) => {
     let updatedList = value.article.filter((item) => {

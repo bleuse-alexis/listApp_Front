@@ -41,7 +41,7 @@ export default function ListSelector() {
           borderRadius: 8,
           borderWidth: 0,
         }}
-        placeholder="selectionner une liste"
+        placeholder={value ? value.label : "selectionner une liste"}
         data={selectedList}
         value={value}
         onChange={(item) => {
