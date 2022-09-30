@@ -55,11 +55,4 @@ const styles = StyleSheet.create({
   list: {
     flex: 10,
   },
-  button: {
-    flex: 0.7,
-    backgroundColor: "red",
-    width: "30%",
-    marginLeft: 400,
-    marginBottom: 10,
-  },
 });
