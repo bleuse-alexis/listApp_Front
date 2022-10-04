@@ -7,7 +7,7 @@ const base2 = axios.create({
   baseURL: "https://world.openbeautyfacts.org/api/v0/product",
 });
 
-const searchService = {
+const SearchService = {
   getProduct(body) {
     let product = base.get(`/${body}.json`);
     if (product.status === 1) {
@@ -23,4 +23,4 @@ const searchService = {
   },
 };
 
-export default searchService;
+export default SearchService;

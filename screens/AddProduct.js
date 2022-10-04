@@ -15,7 +15,7 @@ export default function AddProduct() {
 
   if (scanner === true) {
     return (
-      <View>
+      <View style={styles.container}>
         <Scanner />
       </View>
     );
@@ -23,7 +23,7 @@ export default function AddProduct() {
 
   if (form === true) {
     return (
-      <View>
+      <View style={styles.container}>
         <Form />
       </View>
     );
