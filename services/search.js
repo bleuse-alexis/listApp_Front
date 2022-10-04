@@ -7,25 +7,20 @@ const base2 = axios.create({
   baseURL: "https://world.openfoodfacts.org/api/v0/product",
 });
 
-const SearchService = {
-  getProduct(body) {
-    base.get(`/${body}.json`).then((product) => {
-      if (product.data.status === 1) {
-        return product.data.product;
-      } else {
-        base2.get(`/${body}.json`).then((product2) => {
-          if (product2.data.status === 1) {
-            console.log("test2");
+const getProduct = async (body) => {
+  let product = await base.get(`/${body}.json`);
+  let product2 = await base2.get(`/${body}.json`);
 
-            return product2.data.product;
-          } else {
-            console.log("test3");
-            return "Le produit n'est pas reconnu";
-          }
-        });
-      }
-    });
-  },
+  if (product.data.status === 1 && product2.data.status === 1) {
+    return product.data.product;
+  } else if (product.data.status === 0 && product2.data.status === 0) {
+    return "Le produit n'est pas reconnu";
+  } else if (product.data.status === 1 && product2.data.status === 0) {
+    return product.data.product;
+  } else if (product.data.status === 0 && product2.data.status === 1) {
+    return product2.data.product;
+  }
 };
+const SearchService = { getProduct };
 
 export default SearchService;

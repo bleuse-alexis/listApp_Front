@@ -18,11 +18,7 @@ export default function CodeSCanner() {
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    SearchService.getProduct(data).then((res) => {
-      console.log(res);
-      /*       setProduct(res);
-       */
-    });
+    SearchService.getProduct(data).then((res) => setProduct(res));
   };
 
   if (!hasPermission) {
@@ -40,8 +36,8 @@ export default function CodeSCanner() {
       />
       {scanned && (
         <View style={styles.container}>
-          {/*           <Text style={styles.baseText}>{product.product_name_fr}</Text>
-           */}
+          <Text style={styles.baseText}>{product.product_name_fr}</Text>
+
           <Button
             title={"Tap to Scan Again"}
             onPress={() => {
@@ -64,6 +60,5 @@ const styles = StyleSheet.create({
   },
   baseText: {
     fontSize: 20,
-    color: "#fdfefe",
   },
 });
