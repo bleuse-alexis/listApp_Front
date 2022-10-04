@@ -1,25 +1,30 @@
 import axios from "axios";
 
 const base = axios.create({
-  baseURL: "https://world.openfoodfacts.org/api/v0/product",
+  baseURL: "https://world.openbeautyfacts.org/api/v0/product",
 });
 const base2 = axios.create({
-  baseURL: "https://world.openbeautyfacts.org/api/v0/product",
+  baseURL: "https://world.openfoodfacts.org/api/v0/product",
 });
 
 const SearchService = {
   getProduct(body) {
-    let product = base.get(`/${body}.json`);
-    if (product.status === 1) {
-      return product.product;
-    } else {
-      product = base2.get(`/${body}.json`);
-      if (product.status === 1) {
-        return product.product;
+    base.get(`/${body}.json`).then((product) => {
+      if (product.data.status === 1) {
+        return product.data.product;
       } else {
-        return "Le produit n'est pas reconnu";
+        base2.get(`/${body}.json`).then((product2) => {
+          if (product2.data.status === 1) {
+            console.log("test2");
+
+            return product2.data.product;
+          } else {
+            console.log("test3");
+            return "Le produit n'est pas reconnu";
+          }
+        });
       }
-    }
+    });
   },
 };
 
