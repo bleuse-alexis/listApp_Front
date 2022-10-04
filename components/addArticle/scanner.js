@@ -2,31 +2,36 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
-import searchService from "../../services/search";
+import SearchService from "../../services/search";
 
 export default function CodeSCanner() {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
-  const [product, setProduct] = useState({ product_name_fr: "" });
+  const [product, setProduct] = useState({});
+
   useEffect(() => {
-    async () => {
+    (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
       setHasPermission(status === "granted");
-    };
+    })();
   }, []);
 
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    setProduct(data);
+    SearchService.getProduct(data).then((res) => {
+      console.log(res);
+      /*       setProduct(res);
+       */
+    });
   };
 
-  if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+  if (!hasPermission) {
+    return (
+      <View style={styles.container}>
+        <Text>No access to camera</Text>
+      </View>
+    );
   }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
-
   return (
     <View style={styles.container}>
       <BarCodeScanner
@@ -34,15 +39,16 @@ export default function CodeSCanner() {
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && (
-        <View>
+        <View style={styles.container}>
+          {/*           <Text style={styles.baseText}>{product.product_name_fr}</Text>
+           */}
           <Button
             title={"Tap to Scan Again"}
             onPress={() => {
               setScanned(false);
-              setProduct({ product_name_fr: "" });
+              setProduct({});
             }}
           />
-          <Text style={styles.baseText}>{product.product_name_fr}</Text>
         </View>
       )}
     </View>
