@@ -50,13 +50,25 @@ export default function CodeSCanner() {
             source={{ uri: product.image_front_url }}
           />
           <Text style={styles.baseText}>{product.product_name_fr}</Text>
-          <Button
-            title={"Tap to Scan Again"}
-            onPress={() => {
-              setScanned(false);
-              setProduct({});
-            }}
-          />
+
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              style={styles.buttonYes}
+              onPress={() => setScanned(false)}
+            >
+              <Text style={styles.textStyle}>Ajouter</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.buttonNo}
+              onPress={() => {
+                setScanned(false);
+                setProduct({});
+              }}
+            >
+              <Text style={styles.textStyle}>Annuler</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
@@ -78,5 +90,28 @@ const styles = StyleSheet.create({
   },
   baseText: {
     fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  buttonYes: {
+    margin: 20,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    marginTop: 20,
+    backgroundColor: "#6CCFF6",
+  },
+  buttonNo: {
+    margin: 20,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    marginTop: 20,
+    backgroundColor: "red",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
