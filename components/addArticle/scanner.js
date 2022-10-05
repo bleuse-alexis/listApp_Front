@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  View,
+  Button,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import SearchService from "../../services/search";
@@ -21,6 +28,8 @@ export default function CodeSCanner() {
     SearchService.getProduct(data).then((res) => setProduct(res));
   };
 
+  console.log(product);
+
   if (!hasPermission) {
     return (
       <View style={styles.container}>
@@ -29,15 +38,18 @@ export default function CodeSCanner() {
     );
   }
   return (
-    <View style={styles.container}>
+    <View style={StyleSheet.absoluteFillObject}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
       {scanned && (
-        <View style={styles.container}>
+        <View style={styles.containerScanned}>
+          <Image
+            style={{ width: "60%", height: "60%" }}
+            source={{ uri: product.image_front_url }}
+          />
           <Text style={styles.baseText}>{product.product_name_fr}</Text>
-
           <Button
             title={"Tap to Scan Again"}
             onPress={() => {
@@ -53,6 +65,12 @@ export default function CodeSCanner() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  containerScanned: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
