@@ -14,19 +14,11 @@ export default function AddProduct() {
   const [form, setForm] = useState(false);
 
   if (scanner === true) {
-    return (
-      <View style={styles.container}>
-        <Scanner />
-      </View>
-    );
+    return <Scanner />;
   }
 
   if (form === true) {
-    return (
-      <View style={styles.container}>
-        <Form />
-      </View>
-    );
+    return <Form />;
   }
   if (!scanner && !form) {
     return (
