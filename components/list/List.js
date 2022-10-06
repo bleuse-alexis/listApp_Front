@@ -30,8 +30,6 @@ export default function List() {
       return item;
     });
     setValue({ ...value, article: updatedList });
-
-    console.log(value);
   };
 
   useEffect(() => {

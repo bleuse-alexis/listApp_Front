@@ -20,7 +20,6 @@ export const ListProvider = ({ children }) => {
   };
 
   const updateList = () => {
-    console.log(value);
     ListServices.updateList(value._id, value).then(() => {
       fetchAndSetList({ account: value.account });
     });

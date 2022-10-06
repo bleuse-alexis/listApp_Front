@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Image,
-  View,
-  Button,
-} from "react-native";
+import React, { useState, useContext, useEffect } from "react";
+import { StyleSheet, Text, TouchableOpacity, Image, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
 import SearchService from "../../services/search";
+import ListServices from "../../services/list";
+
+import { ListContext } from "../../context/ListContext";
 
 export default function CodeSCanner() {
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
   const [product, setProduct] = useState({});
+
+  const [body, setBody] = useState({
+    name: "",
+    image: "",
+    marque: "",
+    state: false,
+  });
+
+  const { fetchAndSetList, value } = useContext(ListContext);
 
   useEffect(() => {
     (async () => {
@@ -28,7 +33,27 @@ export default function CodeSCanner() {
     SearchService.getProduct(data).then((res) => setProduct(res));
   };
 
-  console.log(product);
+  const addArticle = () => {
+    setBody({
+      name: product.product_name_fr,
+      image: product.image_front_url,
+      marque: product.brands,
+      state: false,
+    });
+    console.log(body);
+
+    ListServices.addArticle(value._id, body).then(() => {
+      fetchAndSetList({ account: value.account });
+
+      setBody({
+        name: "",
+        image: "",
+        marque: "",
+        state: false,
+      });
+      setProduct({});
+    });
+  };
 
   if (!hasPermission) {
     return (
@@ -54,7 +79,10 @@ export default function CodeSCanner() {
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity
               style={styles.buttonYes}
-              onPress={() => setScanned(false)}
+              onPress={() => {
+                setScanned(false);
+                addArticle();
+              }}
             >
               <Text style={styles.textStyle}>Ajouter</Text>
             </TouchableOpacity>
