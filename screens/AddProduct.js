@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, TouchableOpacity, View, Text, Alert } from "react-native";
 
 import Scanner from "../components/addArticle/scanner";
 import Form from "../components/addArticle/form";
@@ -7,18 +7,36 @@ import AddList from "../components/list/AddList";
 import DeleteList from "../components/list/DeleteList";
 import ListSelector from "../components/list/ListSelector";
 
+import { ListContext } from "../context/ListContext";
+
 import Feather from "react-native-vector-icons/Feather";
 
 export default function AddProduct() {
   const [scanner, setScanner] = useState(false);
   const [form, setForm] = useState(false);
 
+  const { value } = useContext(ListContext);
+
   if (scanner === true) {
-    return <Scanner />;
+    if (value === null) {
+      Alert.alert(
+        "Pas de liste Sélectionné",
+        "Veuillez sélectionner une liste avant d'ajouter un article",
+        [{ text: "Ok" }]
+      );
+      setScanner(false);
+    } else return <Scanner />;
   }
 
   if (form === true) {
-    return <Form />;
+    if (value === null) {
+      Alert.alert(
+        "Pas de liste Sélectionné",
+        "Veuillez sélectionner une liste avant d'ajouter un article",
+        [{ text: "Ok" }]
+      );
+      setForm(false);
+    } else return <Form />;
   }
   if (!scanner && !form) {
     return (
