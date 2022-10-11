@@ -13,22 +13,27 @@ export const ListProvider = ({ children }) => {
     ListServices.getList(body)
       .then((result) => {
         setList(result.data);
+        result.data.map((item) => {
+          if (value !== null) {
+            if (item._id === value._id) {
+              setValue({
+                _id: item._id,
+                label: item.name,
+                value: item.name,
+                article: item.article,
+                account: item.account,
+              });
+            }
+          }
+        });
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const updateList = () => {
-    ListServices.updateList(value._id, value).then(() => {
-      fetchAndSetList({ account: value.account });
-    });
-  };
-
   return (
-    <ListContext.Provider
-      value={{ list, value, setValue, fetchAndSetList, updateList }}
-    >
+    <ListContext.Provider value={{ list, value, setValue, fetchAndSetList }}>
       {children}
     </ListContext.Provider>
   );
