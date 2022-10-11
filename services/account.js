@@ -1,7 +1,7 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const base = axios.create({ baseURL: "http://172.20.10.1:1337" });
+const base = axios.create({ baseURL: "http://192.168.1.7:1337" });
 
 const createAccount = async (body) => {
   return base.post("/account", body);
