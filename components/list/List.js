@@ -12,14 +12,17 @@ import Feather from "react-native-vector-icons/Feather";
 
 import { ListContext } from "../../context/ListContext";
 
+import ListServices from "../../services/list";
+
 export default function List() {
-  const { value, setValue, updateList } = useContext(ListContext);
+  const { value, setValue, fetchAndSetList } = useContext(ListContext);
 
   const deleteArticle = (toDelete) => {
     let updatedList = value.article.filter((item) => {
       return item._id !== toDelete;
     });
     setValue({ ...value, article: updatedList });
+    updateList();
   };
 
   const updateCheckState = (isChecked) => {
@@ -29,12 +32,22 @@ export default function List() {
       }
       return item;
     });
+    console.log(value);
     setValue({ ...value, article: updatedList });
+    console.log(value);
+
+    updateList();
+  };
+
+  const updateList = () => {
+    ListServices.updateList(value._id, value).then(() => {
+      fetchAndSetList({ account: value.account });
+    });
   };
 
   useEffect(() => {
-    if (value !== null) updateList();
-  }, [value]);
+    if (value !== null) fetchAndSetList({ account: value.account });
+  }, []);
 
   if (value !== null) {
     return (
