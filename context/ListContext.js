@@ -13,23 +13,27 @@ export const ListProvider = ({ children }) => {
     ListServices.getList(body)
       .then((result) => {
         setList(result.data);
-        result.data.map((item) => {
-          if (value !== null) {
-            if (item._id === value._id) {
-              setValue({
-                _id: item._id,
-                label: item.name,
-                value: item.name,
-                article: item.article,
-                account: item.account,
-              });
-            }
-          }
-        });
+        fetchAndSetValue();
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const fetchAndSetValue = () => {
+    list.map((item) => {
+      if (value !== null) {
+        if (item._id === value._id) {
+          setValue({
+            _id: item._id,
+            label: item.name,
+            value: item.name,
+            article: item.article,
+            account: item.account,
+          });
+        }
+      }
+    });
   };
 
   return (
