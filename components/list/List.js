@@ -26,23 +26,23 @@ export default function List() {
   };
 
   const updateCheckState = (isChecked) => {
-    let updatedList = value.article.map((item) => {
-      if (item._id === isChecked) {
-        return { ...item, state: !item.state };
-      }
-      return item;
-    });
-    console.log(value);
+    let updatedList = Promise.all(
+      value.article.map((item) => {
+        if (item._id === isChecked) {
+          return { ...item, state: !item.state };
+        }
+        return item;
+      })
+    );
     setValue({ ...value, article: updatedList });
+
     console.log(value);
 
-    updateList();
+    //updateList();
   };
 
   const updateList = () => {
-    ListServices.updateList(value._id, value).then(() => {
-      fetchAndSetList({ account: value.account });
-    });
+    ListServices.updateList(value._id, value);
   };
 
   useEffect(() => {
