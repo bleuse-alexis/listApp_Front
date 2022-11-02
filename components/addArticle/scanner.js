@@ -15,7 +15,7 @@ export default function CodeSCanner() {
   const [body, setBody] = useState({
     name: "",
     image: "",
-    marque: "",
+    brand: "",
     state: false,
   });
 
@@ -31,13 +31,14 @@ export default function CodeSCanner() {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     SearchService.getProduct(data).then((res) => setProduct(res));
+    console.log(product);
   };
 
   const addArticle = () => {
     setBody({
       name: product.product_name_fr,
       image: product.image_front_url,
-      marque: product.brands,
+      brand: product.brands,
       state: false,
     });
   };
@@ -56,7 +57,7 @@ export default function CodeSCanner() {
       setBody({
         name: "",
         image: "",
-        marque: "",
+        brand: "",
         state: false,
       });
       setProduct({});
