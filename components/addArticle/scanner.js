@@ -40,23 +40,28 @@ export default function CodeSCanner() {
       marque: product.brands,
       state: false,
     });
-    console.log(body);
-
-    ListServices.addArticle(value._id, body).then(() => {
-      setValue((prevValue) => ({
-        ...prevValue,
-        article: [...prevValue.article, body],
-      }));
-      fetchAndSetList({ account: value.account });
-    });
-    setBody({
-      name: "",
-      image: "",
-      marque: "",
-      state: false,
-    });
-    setProduct({});
   };
+
+  useEffect(() => {
+    if (body.name !== "") {
+      console.log(body);
+
+      ListServices.addArticle(value._id, body).then(() => {
+        setValue((prevValue) => ({
+          ...prevValue,
+          article: [...prevValue.article, body],
+        }));
+        fetchAndSetList({ account: value.account });
+      });
+      setBody({
+        name: "",
+        image: "",
+        marque: "",
+        state: false,
+      });
+      setProduct({});
+    }
+  }, [body]);
 
   if (!hasPermission) {
     return (
