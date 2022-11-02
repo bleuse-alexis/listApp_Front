@@ -19,7 +19,7 @@ export default function CodeSCanner() {
     state: false,
   });
 
-  const { fetchAndSetList, value } = useContext(ListContext);
+  const { fetchAndSetList, value, setValue } = useContext(ListContext);
 
   useEffect(() => {
     (async () => {
@@ -43,16 +43,19 @@ export default function CodeSCanner() {
     console.log(body);
 
     ListServices.addArticle(value._id, body).then(() => {
+      setValue((prevValue) => ({
+        ...prevValue,
+        article: [...prevValue.article, body],
+      }));
       fetchAndSetList({ account: value.account });
-
-      setBody({
-        name: "",
-        image: "",
-        marque: "",
-        state: false,
-      });
-      setProduct({});
     });
+    setBody({
+      name: "",
+      image: "",
+      marque: "",
+      state: false,
+    });
+    setProduct({});
   };
 
   if (!hasPermission) {
