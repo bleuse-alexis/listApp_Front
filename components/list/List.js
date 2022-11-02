@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "column",
     justifyContent: "space-between",
+    paddingLeft: "2%",
   },
 
   icons: {
@@ -97,6 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    flex: 0.5,
+    flex: 1,
   },
 });
