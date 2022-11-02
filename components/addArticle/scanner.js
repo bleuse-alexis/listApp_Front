@@ -31,7 +31,6 @@ export default function CodeSCanner() {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     SearchService.getProduct(data).then((res) => setProduct(res));
-    console.log(product);
   };
 
   const addArticle = () => {
@@ -71,13 +70,16 @@ export default function CodeSCanner() {
       </View>
     );
   }
+
+  console.log(product);
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && (
+      {scanned && product !== false && (
         <View style={styles.containerScanned}>
           <Image
             style={{ width: "60%", height: "60%" }}
@@ -106,6 +108,20 @@ export default function CodeSCanner() {
               <Text style={styles.textStyle}>Annuler</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      )}
+      {scanned && product === false && (
+        <View style={styles.containerScanned}>
+          <Text style={styles.baseText}>Le produit n'est pas reconnu</Text>
+          <TouchableOpacity
+            style={styles.buttonNo}
+            onPress={() => {
+              setScanned(false);
+              setProduct({});
+            }}
+          >
+            <Text style={styles.textStyle}>OK</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>

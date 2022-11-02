@@ -14,7 +14,7 @@ const getProduct = async (body) => {
   if (product.data.status === 1 && product2.data.status === 1) {
     return product.data.product;
   } else if (product.data.status === 0 && product2.data.status === 0) {
-    return "Le produit n'est pas reconnu";
+    return false;
   } else if (product.data.status === 1 && product2.data.status === 0) {
     return product.data.product;
   } else if (product.data.status === 0 && product2.data.status === 1) {
