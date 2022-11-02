@@ -13,7 +13,6 @@ export const ListProvider = ({ children }) => {
     ListServices.getList(body)
       .then((result) => {
         setList(result.data);
-        fetchAndSetValue();
       })
       .catch((err) => {
         console.log(err);
@@ -36,8 +35,44 @@ export const ListProvider = ({ children }) => {
     });
   };
 
+  const deleteArticle = (toDelete) => {
+    let updatedList = value.article.filter((item) => {
+      return item._id !== toDelete;
+    });
+    setValue({ ...value, article: updatedList });
+  };
+
+  const updateCheckState = (isChecked) => {
+    let updatedList = value.article.map((item) => {
+      if (item._id === isChecked) {
+        return { ...item, state: !item.state };
+      }
+      return item;
+    });
+    setValue({ ...value, article: updatedList });
+  };
+
+  const updateList = () => {
+    ListServices.updateList(value._id, value).then(() => {
+      fetchAndSetList({ account: value.account });
+    });
+  };
+
+  useEffect(() => {
+    if (value !== null) updateList();
+  }, [value]);
+
   return (
-    <ListContext.Provider value={{ list, value, setValue, fetchAndSetList }}>
+    <ListContext.Provider
+      value={{
+        list,
+        value,
+        setValue,
+        fetchAndSetList,
+        updateCheckState,
+        deleteArticle,
+      }}
+    >
       {children}
     </ListContext.Provider>
   );
